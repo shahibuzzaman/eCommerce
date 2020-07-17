@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   FlatList,
+  TextInput,
   Image,
   StyleSheet,
   Alert
@@ -23,10 +24,17 @@ import DeviceInfo from 'react-native-device-info';
 
 
 class Item extends Component {
-  state = {
-    user: {},
-    cartList: [{ a: 'dfs', b: '3434' }],
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      usr_address: '',
+      phoneNumber: '',
+      cartList: [{ a: 'dfs', b: '3434' }],
+    };
+  }
+
 
   // onAuthStateChanged(user) {
   //   this.setState({user: user});
@@ -36,7 +44,29 @@ class Item extends Component {
     this.props.getCarts();
     auth().onAuthStateChanged((user) => {
       this.setState({ user: user });
+
+      var userRef = firebase
+        .database()
+        .ref('/users/' + user.phoneNumber);
+
+      userRef.once('value', function (snapshot) {
+        var address = snapshot.val().address;
+        var phone = snapshot.val().phone;
+
+        console.log('asdfsdf', address);
+
+        this.setState({ usr_address: address, phoneNumber: phone });
+
+
+      }.bind(this));
+
+      // this.setState({ usr_address: address });
     });
+
+
+
+
+
   }
 
   render() {
@@ -49,6 +79,7 @@ class Item extends Component {
     });
 
     console.log('list of carts', this.props.listOfCarts);
+    console.log('along wid', this.state.usr_address, this.state.phoneNumber);
 
     return (
       <ScrollView>
@@ -142,6 +173,33 @@ class Item extends Component {
           <Text style={{ fontSize: 20 }}>Total = {total} ৳</Text>
         </View>
 
+        {/* //hello */}
+        < View >
+
+          <Text>
+            Shipping Address:
+        </Text>
+
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Type here to translate!"
+            onChangeText={text => this.setState({ usr_address: text })}
+            defaultValue={this.state.usr_address}
+          />
+
+          <Text>
+            Phone Number:
+        </Text>
+
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Type here to translate!"
+            onChangeText={text => this.setState({ phoneNumber: text })}
+            defaultValue={this.state.phoneNumber}
+          />
+
+        </View >
+
         <View
           style={{
             backgroundColor: '#f39c12',
@@ -211,20 +269,20 @@ class Item extends Component {
                               billing: {
                                 first_name: "Ashraf H",
                                 last_name: "Patwary",
-                                address_1: address,
+                                address_1: this.state.usr_address,
                                 address_2: "",
                                 city: "San Francisco",
                                 state: "CA",
                                 postcode: "94103",
                                 country: "US",
                                 email: "john.doe@example.com",
-                                phone: phone
+                                phone: this.state.phoneNumber
                               },
                               shipping: {
                                 first_name: "Jahid",
                                 last_name: "Ahsan",
                                 address_1: "Kamarpara",
-                                address_2: address,
+                                address_2: this.state.usr_address,
                                 city: "Dhaka",
                                 state: "",
                                 postcode: "",
@@ -258,7 +316,7 @@ class Item extends Component {
 
 
 
-                        });
+                        }.bind(this));
 
                         const uniqueId = DeviceInfo.getUniqueId();
                         var cartRef = firebase.database().ref('/cart');
@@ -289,7 +347,7 @@ class Item extends Component {
               </Text>
             )}
         </View>
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
