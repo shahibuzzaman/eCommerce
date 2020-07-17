@@ -8,9 +8,9 @@ import {
   Button,
   StatusBar,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './components/screens/HomeScreen';
 import ProfileScreen from './components/screens/ProfileScreen';
@@ -20,11 +20,12 @@ import AuthAndInfo from './components/screens/AuthAndInfo';
 import ProductsScreen from './components/ProductsScreen';
 import ProductDetails from './components/ProductDetails';
 import CartIconBadge from './components/CartIconBadge';
+import SubCategories from './components/screens/SubCategories';
 
 import ShoppingCartIcon from './components/ShoppingCartIcon';
 
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import SearchBar from './components/SearchBar';
@@ -40,7 +41,7 @@ const HomeStackScreen = () => {
       <HomeStack.Screen
         name="Home"
         component={HomeScreen}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           title: '',
           headerRight: () => <SearchBar navigation={navigation} />,
         })}
@@ -48,16 +49,27 @@ const HomeStackScreen = () => {
       <HomeStack.Screen
         name="Products"
         component={ProductsScreen}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           title: '',
           headerShown: false,
         })}
       />
+
+      <HomeStack.Screen
+        name="SubCategories"
+        component={SubCategories}
+        options={({ navigation }) => ({
+          title: '',
+          headerShown: false,
+        })}
+      />
+
+
       <HomeStack.Screen name="Product Details" component={ProductDetails} />
       <HomeStack.Screen
         name="Search"
         component={SearchList}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerShown: false,
         })}
       />
@@ -107,8 +119,8 @@ const App = () => {
     <Provider store={state}>
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({route}) => ({
-            tabBarIcon: ({focused, color, size}) => {
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
               if (route.name === 'Home') {
                 return (
                   <Icon

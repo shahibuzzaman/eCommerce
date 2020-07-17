@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {Button, Card, SearchBar} from 'react-native-elements';
+import { Button, Card, SearchBar } from 'react-native-elements';
 import SnackBar from 'react-native-snackbar-component';
-import {postCart} from '../actions';
-import {connect} from 'react-redux';
+import { postCart } from '../actions';
+import { connect } from 'react-redux';
 import {
   Image,
   Text,
@@ -36,10 +36,10 @@ class ProductsScreen extends Component {
 
   makeRemoteRequest = () => {
     const url =
-      'https://fadoll.com/wc-api/v3/products/?&filter[category]=' +
+      'https://malamalexpress.com/wc-api/v3/products/?&filter[category]=' +
       this.state.categorySlug +
-      '&consumer_key=ck_dd172b0edbf112bd76904a6112291370a4403aaf&consumer_secret=cs_b989504ffc25f1e7e538e107001c1091871557dc';
-    this.setState({loading: true});
+      '&consumer_key=ck_af6dae0d921e12528b92964fb526317370642ec1&consumer_secret=cs_d172a15e6fa946ccc01890ca6adec67e3724e667';
+    this.setState({ loading: true });
 
     fetch(url)
       .then((res) => res.json())
@@ -52,7 +52,7 @@ class ProductsScreen extends Component {
         this.arrayholder = res.products;
       })
       .catch((error) => {
-        this.setState({error, loading: false});
+        this.setState({ error, loading: false });
       });
   };
 
@@ -92,9 +92,9 @@ class ProductsScreen extends Component {
       <View>
         <FlatList
           data={this.state.data}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             return (
-              <View style={{padding: 0}}>
+              <View style={{ padding: 0 }}>
                 <Products item={item} navigation={this.state.navigation} />
               </View>
             );
@@ -108,4 +108,4 @@ class ProductsScreen extends Component {
   }
 }
 
-export default connect(null, {postCart})(ProductsScreen);
+export default connect(null, { postCart })(ProductsScreen);

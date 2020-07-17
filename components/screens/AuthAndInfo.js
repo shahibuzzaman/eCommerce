@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {Button, TextInput, View, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, TextInput, View, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firebase from '../../firebase';
 
-export default function AuthAndInfo({navigation}) {
+export default function AuthAndInfo({ navigation }) {
   // If null, no SMS has been sent
   const [confirm, setConfirm] = useState(null);
 
@@ -33,7 +33,7 @@ export default function AuthAndInfo({navigation}) {
   async function confirmCode() {
     try {
       await confirm.confirm(code);
-      const {currentUser} = firebase.auth();
+      const { currentUser } = firebase.auth();
       console.log('current user', currentUser);
     } catch (error) {
       console.log('Invalid code.');
@@ -42,7 +42,7 @@ export default function AuthAndInfo({navigation}) {
 
   if (user) {
     var ref = firebase.database().ref('/users/' + user.phoneNumber);
-    ref.set({phone: user.phoneNumber, address: address});
+    ref.set({ phone: user.phoneNumber, address: address });
     navigation.navigate('Cart');
     return (
       <View>
@@ -61,7 +61,7 @@ export default function AuthAndInfo({navigation}) {
 
           <Button
             title="Phone Number Sign In"
-            onPress={() => signInWithPhoneNumber('+8801631615049')}
+            onPress={() => signInWithPhoneNumber('+8801816032138')}
           />
         </View>
       );

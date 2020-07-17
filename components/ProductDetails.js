@@ -1,6 +1,6 @@
-import React, {Component, useEffect, useState} from 'react';
-import {postCart} from '../actions';
-import {connect} from 'react-redux';
+import React, { Component, useEffect, useState } from 'react';
+import { postCart } from '../actions';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -22,17 +22,17 @@ class DetailsScreen extends Component {
 
   componentDidMount() {
     const api =
-      'https://fadoll.com/wc-api/v3/products/' +
+      'https://malamalexpress.com/wc-api/v3/products/' +
       this.state.itemId +
-      '/?consumer_key=ck_dd172b0edbf112bd76904a6112291370a4403aaf&consumer_secret=cs_b989504ffc25f1e7e538e107001c1091871557dc';
+      '/?consumer_key=ck_af6dae0d921e12528b92964fb526317370642ec1&consumer_secret=cs_d172a15e6fa946ccc01890ca6adec67e3724e667';
     fetch(api)
       .then((response) => response.json())
       .then((json) => {
-        this.setState({data: json.product});
+        this.setState({ data: json.product });
       })
       .catch((error) => console.error(error))
       .finally(() => {
-        this.setState({isLoading: false});
+        this.setState({ isLoading: false });
       });
   }
 
@@ -128,12 +128,12 @@ class DetailsScreen extends Component {
       },
     };
 
-    const {data, isLoading} = this.state;
+    const { data, isLoading, itemId } = this.state;
 
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View style={{alignItems: 'center', marginHorizontal: 30}}>
+          <View style={{ alignItems: 'center', marginHorizontal: 30 }}>
             <Image
               style={styles.productImg}
               source={{
@@ -150,7 +150,7 @@ class DetailsScreen extends Component {
             <TouchableOpacity
               style={styles.shareButton}
               onPress={() => {
-                this.props.postCart(data.title, data.price);
+                this.props.postCart(itemId, data.title, data.price);
               }}>
               <Text style={styles.shareButtonText}>Add To Cart</Text>
             </TouchableOpacity>
@@ -161,4 +161,4 @@ class DetailsScreen extends Component {
   }
 }
 
-export default connect(null, {postCart})(DetailsScreen);
+export default connect(null, { postCart })(DetailsScreen);

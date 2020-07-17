@@ -16,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^5.5.2",
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.4.2",
+    "axios": "^0.18.0",
     "cors-anywhere": "^0.4.3",
     "firebase": "^7.15.1",
     "react": "16.11.0",
@@ -30,6 +31,7 @@
     "react-native-screens": "^2.8.0",
     "react-native-snackbar-component": "^1.1.10",
     "react-native-vector-icons": "^6.6.0",
+    "react-native-woocommerce-api": "^1.1.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

@@ -22,8 +22,8 @@ export function getCarts() {
   };
 }
 
-export function postCart(title, price, qnt = 1) {
-  console.log('--------', title, price, uniqueId);
+export function postCart(id, title, price, qnt = 1) {
+  console.log('--------', id, title, price, uniqueId);
 
   return (dispatch) => {
     var ref = firebase.database().ref(`/cart/${uniqueId}`);
@@ -34,12 +34,12 @@ export function postCart(title, price, qnt = 1) {
         var specific_child = ref.child(key);
         specific_child.once('value', function (snapshot) {
           var qnt = snapshot.val().qnt + 1;
-          ref.child(key).set({title, price, qnt});
+          ref.child(key).set({ id, title, price, qnt });
         });
 
         console.log('firebase', 'exists dude!!!');
       } else {
-        ref.child(key).set({title, price, qnt});
+        ref.child(key).set({ id, title, price, qnt });
       }
     });
   };
@@ -49,7 +49,7 @@ export function updateCart(key, title, price, qnt) {
   console.log(key, title, price, qnt);
   return (dispatch) => {
     var ref = firebase.database().ref(`/cart/${uniqueId}`);
-    ref.child(key).set({title, price, qnt});
+    ref.child(key).set({ title, price, qnt });
   };
 }
 
